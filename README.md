@@ -1,2 +1,3 @@
 # ci-cd-docker-app
-project
+¨Project github actions and docker
+Daniel Stanciu
