@@ -1,0 +1,26 @@
+version: '3'
+
+services: #start de service
+  mongo: #service mongodb database
+    image: mongo
+    ports:
+      - "27017:27017" #poort 27017 van container word doorgestuurd naar 27017 van mijn pc
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: rootuser #gebruikersnaam van database
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword #password van database
+    volumes:
+      - mydb:/data/db #zorgt dat data bewaard word
+
+  mongo-express: #service mongo express , is een webinterface voor mongodb
+    image: mongo-express
+    ports:
+      - "8081:8081" #maakt de webinterface beschikbaar op localhost poort 8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: adminuser #gebruikersnaam voor mongo express
+      ME_CONFIG_MONGODB_ADMINPASSWORD: adminpassword #password voor mongo express
+      ME_CONFIG_MONGODB_SERVER: mongo
+    depends_on:
+      - mongo #zorgt eerst dat de service mongodb word gestart en dan mongo express
+
+volumes:
+  mydb:

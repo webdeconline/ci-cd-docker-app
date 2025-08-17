@@ -1,0 +1,19 @@
+version: '3.9'
+
+services: #service word gestart
+  drupal: #de service is Drupal website zelf
+    image: drupal:10 #de officiele drupal versie
+    ports:
+      - "8090:80" #zorgt ervoor dat drupal beschikbaar is via poort 8090 op je pc
+    depends_on:
+      - db #drupal wacht eerst tot dat de database service klaar is
+    restart: always  #moest er een crash zijn , dan herstart die zich automatisch
+
+  db: #de database dat drupal nodig heeft
+    image: mariadb:10.6 #we gebruiken de mariadb versie
+    environment:
+      MYSQL_DATABASE: cmsdb #naam van de database
+      MYSQL_USER: cmsuser #gebruikersnaam van de database
+      MYSQL_PASSWORD: cmspassword #password van de database
+      MYSQL_ROOT_PASSWORD: rootpass #de password van de admin van de database
+    restart: always #moest er een crash zijn , dan herstart die zich automatisch
